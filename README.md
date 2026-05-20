@@ -21,7 +21,7 @@ All traffic is encrypted with a shared swarm key (XSalsa20). Only peers with the
 
 ## Prerequisites
 
-- Go 1.22+
+- Go 1.25+ (required by libp2p dependencies)
 - A team member willing to run a bootstrap node (any cheap VPS works)
 
 ## Quick start
