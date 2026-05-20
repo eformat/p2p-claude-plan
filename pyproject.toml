@@ -1,0 +1,7 @@
+# This is a Go project -- see go.mod for dependencies.
+# This file exists only for metadata.
+
+[project]
+name = "p2p-claude-plans"
+version = "0.1.0"
+description = "P2P sharing of Claude Code plan files between team members"

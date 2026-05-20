@@ -1,0 +1,14 @@
+[Unit]
+Description=P2P Claude Plans Sharing Daemon
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/p2p-claude-plans
+Restart=on-failure
+RestartSec=10
+Environment=LIBP2P_FORCE_PNET=1
+
+[Install]
+WantedBy=default.target

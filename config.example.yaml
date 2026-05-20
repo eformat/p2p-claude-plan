@@ -1,0 +1,29 @@
+# P2P Claude Plans configuration
+# Place this file at ~/.claude/p2p-plans.yaml
+
+# Path to the shared swarm key (all team members use the same key)
+swarm_key_path: ~/.claude/p2p-plans.key
+
+# Directory containing Claude Code plan files
+plans_dir: ~/.claude/plans/
+
+# Local HTTP API port (the /check-team-plans skill queries this)
+http_port: 7856
+
+# Your display name shown to teammates
+peer_name: your-name-here
+
+# libp2p listen addresses
+listen_addrs:
+  - /ip4/0.0.0.0/tcp/4001
+
+# Bootstrap peers -- at least one team member runs a bootstrap node
+# Replace with your team's bootstrap node multiaddr
+bootstrap_peers:
+  # - /ip4/203.0.113.50/tcp/4001/p2p/12D3KooW...
+
+# Path to persistent identity key (auto-generated on first run)
+# identity_key_path: ~/.claude/p2p-plans-identity.key
+
+# Timeout in seconds for peer requests
+# request_timeout: 5
