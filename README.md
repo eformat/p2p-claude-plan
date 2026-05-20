@@ -86,7 +86,23 @@ systemctl --user enable --now p2p-claude-plans
 p2p-claude-plans &
 ```
 
-### 6. Use it
+### 6. Verify it's working
+
+```bash
+# Check daemon health
+systemctl --user status p2p-claude-plans
+
+# Quick status
+curl -sf http://localhost:7856/health | jq '{status, plan_count, peer_count}'
+
+# Who's online?
+curl -sf http://localhost:7856/peers | jq .
+
+# See only teammate plans (not your own)
+curl -sf http://localhost:7856/plans | jq '.[] | select(.is_local == false) | {peer_name, plans: [.plans[].summary]}'
+```
+
+### 7. Use it
 
 In Claude Code:
 ```
