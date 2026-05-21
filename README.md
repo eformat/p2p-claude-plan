@@ -350,6 +350,7 @@ ssh vps "sudo journalctl -u p2p-claude-plans -n 5 --no-pager"
 
 ```
 make build       # Build the binary
+make test        # Run all tests (security, path traversal, functionality)
 make install     # Build + install binary, skill, and systemd service
 make uninstall   # Remove everything
 make run         # Build and run locally

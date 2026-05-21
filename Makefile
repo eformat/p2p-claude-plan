@@ -2,10 +2,13 @@ BINARY := p2p-claude-plans
 INSTALL_DIR := $(HOME)/.local/bin
 SKILL_DIR := $(HOME)/.claude/skills/check-team-plans
 
-.PHONY: build install uninstall run keygen clean logs status
+.PHONY: build test install uninstall run keygen clean logs status
 
 build:
 	go build -o $(BINARY) ./cmd/p2p-claude-plans/
+
+test:
+	go test -v ./...
 
 install:
 	bash install.sh
