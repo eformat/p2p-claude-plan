@@ -103,13 +103,24 @@ func (s *Store) GetPlan(id string) (*Plan, bool) {
 }
 
 func (s *Store) GetPlanContent(id string) (string, error) {
+	if strings.ContainsAny(id, "/\\") || strings.Contains(id, "..") {
+		return "", os.ErrPermission
+	}
 	s.mu.RLock()
 	p, ok := s.plans[id]
 	s.mu.RUnlock()
 	if !ok {
 		return "", os.ErrNotExist
 	}
-	data, err := os.ReadFile(p.FilePath)
+	resolved, err := filepath.EvalSymlinks(p.FilePath)
+	if err != nil {
+		return "", err
+	}
+	absDir, _ := filepath.Abs(s.dir)
+	if !strings.HasPrefix(resolved, absDir+string(filepath.Separator)) {
+		return "", os.ErrPermission
+	}
+	data, err := os.ReadFile(resolved)
 	if err != nil {
 		return "", err
 	}

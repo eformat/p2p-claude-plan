@@ -54,6 +54,10 @@ func handleList(s network.Stream, store *planstore.Store, peerName string, h hos
 }
 
 func handleGet(s network.Stream, store *planstore.Store, peerName string, h host.Host, planID string) {
+	if !isValidPlanID(planID) {
+		writeMessage(s, &GetResponse{Error: "invalid plan_id"})
+		return
+	}
 	content, err := store.GetPlanContent(planID)
 	if err != nil {
 		writeMessage(s, &GetResponse{Error: fmt.Sprintf("plan not found: %s", planID)})
@@ -86,6 +90,18 @@ func readMessage[T any](r io.Reader) (*T, error) {
 		return nil, err
 	}
 	return &msg, nil
+}
+
+func isValidPlanID(id string) bool {
+	if len(id) == 0 || len(id) > 255 {
+		return false
+	}
+	for _, c := range id {
+		if !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9') || c == '-' || c == '_' || c == '.') {
+			return false
+		}
+	}
+	return true
 }
 
 func writeMessage(w io.Writer, msg any) error {
